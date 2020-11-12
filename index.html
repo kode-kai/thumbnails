@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <script src="html2canvas.min.js"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Montserrat:ital,wght@0,600;1,600&display=swap" rel="stylesheet"> 
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            #div {
+                background-color: #f8e71c;
+                width: 1920px;
+                height: 1080px;
+            }
+
+            #div > h1 {
+                font-family: 'Knewave', cursive;
+                color: #b50218;
+                text-align: center;
+                font-size: 400;
+            }
+
+            #div > h2 {
+                font-family: 'Montserrat', sans-serif;
+                color: #b50218;
+                text-align: center;
+                font-size: 150;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div">
+            <h1>kode kai</h1>
+            <h2>Episodio 6: Unit testing</h2>
+        </div>
+        <textarea id="image">
+
+        </textarea>
+        <script>
+            function doCapture() {
+ 
+    // Convert the div to image (canvas)
+    html2canvas(document.getElementById("div")).then(function (canvas) {
+        window.scrollTo(0,0)
+        console.log("hello")
+        dt = canvas.toDataURL('image/jpeg', 1.0)
+        document.getElementById("image").value = dt
+        console.log(dt)
+    });
+}
+        </script>
+    </body>
+</html>
