@@ -1,55 +1,76 @@
 <html>
-    <head>
-        <script src="html2canvas.min.js"></script>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Montserrat:ital,wght@0,600;1,600&display=swap" rel="stylesheet"> 
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
+   <head>
+      <script src="html2canvas.min.js"></script>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Montserrat:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+      <style>
+         * {
+            margin: 0;
+            padding: 0;
+         }
+         #div {
+            background-color: #f8e71c;
+            color: #b50218;
+            width: 1920px;
+            height: 1080px;
+         }
+         #div.dark {
+            background-color: #160f29;
+            color: white;
+         }
+         #div > h1 {
+            font-family: 'Knewave', cursive;
+            text-align: center;
+            font-size: 400;
+            font-weight: normal;
+         }
+         #div > h2 {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            font-size: 150;
+         }
+         #img {
+            width: 960px;
+            height: 540px;
+            border: 2px dashed black;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="div">
+         <h1>kode kai</h1>
+         <h2 id="subtitle"></h2>
+      </div>
+      <img id="img">
+      <script>
+         function getUrlVars()
+         {
+             var vars = [], hash;
+             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+             for(var i = 0; i < hashes.length; i++)
+             {
+                 hash = hashes[i].split('=');
+                 vars.push(hash[0]);
+                 vars[hash[0]] = hash[1];
+             }
+             return vars;
+         }
 
-            #div {
-                background-color: #f8e71c;
-                width: 1920px;
-                height: 1080px;
-            }
+         function doCapture() {
+             html2canvas(document.getElementById("div")).then(function (canvas) {
+                 window.scrollTo(0,0)
+                 dt = canvas.toDataURL('image/jpeg', 1.0)
+                 document.getElementById("img").src = dt
+                 document.getElementById("div").style.display = "none"
+             });
+         }
 
-            #div > h1 {
-                font-family: 'Knewave', cursive;
-                color: #b50218;
-                text-align: center;
-                font-size: 400;
-            }
-
-            #div > h2 {
-                font-family: 'Montserrat', sans-serif;
-                color: #b50218;
-                text-align: center;
-                font-size: 150;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="div">
-            <h1>kode kai</h1>
-            <h2>Episodio 6: Unit testing</h2>
-        </div>
-        <textarea id="image">
-
-        </textarea>
-        <script>
-            function doCapture() {
- 
-    // Convert the div to image (canvas)
-    html2canvas(document.getElementById("div")).then(function (canvas) {
-        window.scrollTo(0,0)
-        console.log("hello")
-        dt = canvas.toDataURL('image/jpeg', 1.0)
-        document.getElementById("image").value = dt
-        console.log(dt)
-    });
-}
-        </script>
-    </body>
+         (function() {
+             params = getUrlVars()
+             document.getElementById("div").className = params["t"] || "light"
+             document.getElementById("subtitle").textContent = unescape(params["s"])
+             doCapture()
+         })();
+      </script>
+   </body>
 </html>
