@@ -4,6 +4,11 @@
   src: local('Knewave'), url(./fonts/Knewave-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat'), url(./fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
 * {
   margin: 0;
   padding: 0;
