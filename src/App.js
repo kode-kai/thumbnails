@@ -1,22 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { Thumbnail } from './components/Thumbnail';
+import React from 'react';
+
 function App() {
+  const [subtitle, setSubtitle] = React.useState('');
+
+  const handleChange = (e) => {
+    const text = e.target.value;
+    setSubtitle(text);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+          <Thumbnail theme="dark" subtitle={subtitle}/>
+          <br/>
+          <input value={subtitle} onChange={handleChange} type="text"/>
       </header>
     </div>
   );
