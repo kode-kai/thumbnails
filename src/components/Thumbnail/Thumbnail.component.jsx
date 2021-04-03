@@ -1,36 +1,62 @@
 import React from 'react';
-import { Div, Img, H1, H2 } from './Thumbnail.styled';
-import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 
-const Thumbnail = ({ subtitle = 'subtitle', theme }) => {
-  const containerRef = React.useRef();
-  const imageRef = React.useRef();
+import PlaceholderImage from '../../assets/placeholder.png';
+import { Div, Img } from './Thumbnail.styled';
 
-  const doCapture = () => {
-    html2canvas(containerRef.current).then(canvas => {
+const initialText = 'example';
+
+const Thumbnail = () => {
+  const [subtitle, setSubtitle] = React.useState(initialText);
+  const [isDark, setIsDark] = React.useState(false);
+  const containerRef = React.useRef(null);
+  const imageRef = React.useRef(null);
+
+  React.useEffect(() => { 
+    (subtitle !== initialText) ? containerRef.current.style.display = '' : 
+      containerRef.current.style.display = 'none'; 
+  }, [subtitle]);
+
+  const handleChange = (e) => {
+    const text = e.target.value;
+    setSubtitle(text);
+  }
+
+  const handleTheme = () => setIsDark(isDark => !isDark);
+  
+  const handleClick = () => {
+    const input = containerRef.current;
+    domtoimage.toPng(input).then(imgData => {
       window.scrollTo(0,0);
-      imageRef.current.src = canvas.toDataURL('image/jpeg', 1.0);
-      containerRef.current.style.display = "none";
+      console.log(imgData);
+      imageRef.current.src = imgData;
+      input.style.display = "none";
     });
   }
 
-  React.useEffect(() => {
-    doCapture();
-  }, []);
-
-  const handleClick = () => {
-    doCapture();
+  const handleReload = () => {
+    window.location.reload();
+    return false;
   }
 
   return (
     <>
-      <Div ref={containerRef} className={theme}>
-        <H1>kode kai</H1>
-        <H2>{subtitle}</H2>
-      </Div>
-      <Img ref={imageRef} />
-      <br/>
-      <input type="button" onClick={handleClick} value="Capture"/>
+      <div>
+        <Img src={PlaceholderImage} ref={imageRef} id="myImage" alt="canvas"/>
+        <br/>
+        <input placeholder="Enter your text here" onChange={handleChange} type="text"/>
+        <input type="button" value="Invert Theme" onClick={handleTheme}/>
+        <br />
+        <input type="button" value="Capture" onClick={handleClick}/>
+        <input type="button" value="Reload" onClick={handleReload}/>
+        <br />
+      </div>
+      <div>
+        <Div ref={containerRef} id="div" isDark={isDark}>
+          <h1 style={{fontSize: 400}}>kode kai</h1>
+          <h2 style={{fontSize: 150}}>{subtitle}</h2>
+        </Div>
+      </div>
     </>
   )
 };
