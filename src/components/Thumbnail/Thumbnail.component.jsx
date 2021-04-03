@@ -28,7 +28,6 @@ const Thumbnail = () => {
     const input = containerRef.current;
     domtoimage.toPng(input).then(imgData => {
       window.scrollTo(0,0);
-      console.log(imgData);
       imageRef.current.src = imgData;
       input.style.display = "none";
     });
