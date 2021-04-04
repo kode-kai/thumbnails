@@ -91,16 +91,18 @@ const Thumbnail = () => {
           onChange={handleChange}
           type="text"
         />
-        <input type="button" value="Invert Theme" onClick={handleTheme} />
-        <br />
-        <input type="button" value="Capture" onClick={handleClick} />
-        <input type="button" value="Reload" onClick={handleReload} />
-        <input
-          type="button"
-          value="Download"
-          onClick={handleDownload}
-          disabled={isDisabled}
-        />
+        <button onClick={handleCapture} disabled={rendered}>
+          <FontAwesomeIcon icon={faCameraRetro} />
+        </button>
+        <button onClick={handleReload}>
+          <FontAwesomeIcon icon={faRecycle} />
+        </button>
+        <button onClick={handleDownload} disabled={!rendered}>
+          <FontAwesomeIcon icon={faDownload} />
+        </button>
+        <button onClick={handleTheme}>
+          <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+        </button>
         <div>
           <a
             ref={anchorRef}
