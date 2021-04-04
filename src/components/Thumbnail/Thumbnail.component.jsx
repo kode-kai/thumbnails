@@ -3,10 +3,13 @@ import domtoimage from "dom-to-image";
 
 import PlaceholderImage from "../../assets/placeholder.png";
 import { Div, Img } from "./Thumbnail.styled";
+import { render } from "@testing-library/react";
 
-const initialText = "example";
+const initialText = "PLACEHOLDER";
 
 const Thumbnail = () => {
+  const [rendered, setRendered] = React.useState(false);
+  const [previewZoom, setPreviewZoom] = React.useState(0.5);
   const [subtitle, setSubtitle] = React.useState(initialText);
   const [source, setSource] = React.useState("");
   const [isDark, setIsDark] = React.useState(false);
@@ -17,9 +20,18 @@ const Thumbnail = () => {
   const anchorRef = React.useRef(null);
 
   React.useEffect(() => {
-    subtitle !== initialText
-      ? (containerRef.current.style.display = "")
-      : (containerRef.current.style.display = "none");
+    if (rendered == true) {
+      containerRef.current.style.display = "none";
+      imageRef.current.style.display = "block";
+    } else {
+      imageRef.current.style.display = "none";
+      containerRef.current.style.display = "block";
+    }
+  }, [rendered]);
+
+  React.useEffect(() => {
+    setRendered(false);
+    setPreviewZoom(0.5);
   }, [subtitle]);
 
   const handleChange = (e) => {
@@ -30,13 +42,14 @@ const Thumbnail = () => {
   const handleTheme = () => setIsDark((isDark) => !isDark);
 
   const handleClick = () => {
+    setPreviewZoom(1.0);
     const input = containerRef.current;
     setIsDisabled(false);
     domtoimage.toPng(input).then((imgData) => {
       window.scrollTo(0, 0);
       imageRef.current.src = imgData;
       setSource(imgData);
-      input.style.display = "none";
+      setRendered(true);
     });
   };
 
@@ -55,7 +68,23 @@ const Thumbnail = () => {
   return (
     <>
       <div>
-        <Img src={PlaceholderImage} ref={imageRef} id="myImage" alt="canvas" />
+        <div>
+          <Img
+            src={PlaceholderImage}
+            ref={imageRef}
+            id="myImage"
+            alt="canvas"
+          />
+          <Div
+            ref={containerRef}
+            id="div"
+            previewZoom={previewZoom}
+            isDark={isDark}
+          >
+            <h1 style={{ fontSize: 400 }}>kode kai</h1>
+            <h2 style={{ fontSize: 150 }}>{subtitle}</h2>
+          </Div>
+        </div>
         <br />
         <input
           placeholder="Enter your topic here"
@@ -82,12 +111,6 @@ const Thumbnail = () => {
           </a>
         </div>
         <br />
-      </div>
-      <div>
-        <Div ref={containerRef} id="div" isDark={isDark}>
-          <h1 style={{ fontSize: 400 }}>kode kai</h1>
-          <h2 style={{ fontSize: 150 }}>{subtitle}</h2>
-        </Div>
       </div>
     </>
   );
