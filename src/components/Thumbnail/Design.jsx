@@ -1,12 +1,7 @@
 import styled from "styled-components";
+import React from "react";
 
-export const Img = styled.img`
-  width: 960px;
-  height: 540px;
-  border: 2px dashed black;
-`;
-
-export const Div = styled.div`
+const Div = styled.div`
   background-color: #f8e71c;
   color: #b50218;
   zoom: ${(props) => props.previewZoom};
@@ -28,3 +23,14 @@ export const Div = styled.div`
   background-color: ${(props) => (props.isDark ? `#160f29` : `#f8e71c`)};
   color: ${(props) => (props.isDark ? `white` : `#b50218`)};
 `;
+
+const Design = ({ previewZoom, isDark, subtitle, containerRef }) => {
+  return (
+    <Div ref={containerRef} previewZoom={previewZoom} isDark={isDark}>
+      <h1 style={{ fontSize: 400 }}>kode kai</h1>
+      <h2 style={{ fontSize: 150 }}>{subtitle}</h2>
+    </Div>
+  );
+};
+
+export default Design;
