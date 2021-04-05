@@ -1,12 +1,12 @@
-
 @font-face {
-  font-family: 'Knewave';
-  src: local('Knewave'), url(./fonts/Knewave-Regular.ttf) format('truetype');
+  font-family: "Knewave";
+  src: local("Knewave"), url(./fonts/Knewave-Regular.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat'), url(./fonts/Montserrat-Regular.ttf) format('truetype');
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+    url(./fonts/Montserrat-Regular.ttf) format("truetype");
 }
 
 * {

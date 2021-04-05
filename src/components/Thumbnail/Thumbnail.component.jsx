@@ -1,25 +1,52 @@
 import React from "react";
 import domtoimage from "dom-to-image";
-
+import styled from "styled-components";
 import PlaceholderImage from "../../assets/placeholder.png";
-import { Div, Img } from "./Thumbnail.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCameraRetro,
+  faRecycle,
+  faDownload,
+  faSun,
+  faMoon,
+} from "@fortawesome/free-solid-svg-icons";
 
-const initialText = "example";
+import Design from "./Design";
+
+const initialText = "PLACEHOLDER";
+
+const Img = styled.img`
+  width: 960px;
+  height: 540px;
+  border: 2px dashed black;
+`;
 
 const Thumbnail = () => {
+  const [rendered, setRendered] = React.useState(false);
+  const [previewZoom, setPreviewZoom] = React.useState(0.5);
   const [subtitle, setSubtitle] = React.useState(initialText);
   const [source, setSource] = React.useState("");
   const [isDark, setIsDark] = React.useState(false);
-  const [isDisabled, setIsDisabled] = React.useState(true);
 
   const containerRef = React.useRef(null);
   const imageRef = React.useRef(null);
   const anchorRef = React.useRef(null);
 
   React.useEffect(() => {
-    subtitle !== initialText
-      ? (containerRef.current.style.display = "")
-      : (containerRef.current.style.display = "none");
+    if (rendered === true) {
+      containerRef.current.style.display = "none";
+      imageRef.current.style.display = "block";
+    } else {
+      imageRef.current.style.display = "none";
+      if (containerRef.current != null) {
+        containerRef.current.style.display = "block";
+      }
+    }
+  }, [rendered]);
+
+  React.useEffect(() => {
+    setRendered(false);
+    setPreviewZoom(0.5);
   }, [subtitle]);
 
   const handleChange = (e) => {
@@ -29,14 +56,14 @@ const Thumbnail = () => {
 
   const handleTheme = () => setIsDark((isDark) => !isDark);
 
-  const handleClick = () => {
+  const handleCapture = () => {
+    setPreviewZoom(1.0);
     const input = containerRef.current;
-    setIsDisabled(false);
     domtoimage.toPng(input).then((imgData) => {
       window.scrollTo(0, 0);
       imageRef.current.src = imgData;
       setSource(imgData);
-      input.style.display = "none";
+      setRendered(true);
     });
   };
 
@@ -53,43 +80,44 @@ const Thumbnail = () => {
   };
 
   return (
-    <>
+    <div>
       <div>
         <Img src={PlaceholderImage} ref={imageRef} id="myImage" alt="canvas" />
-        <br />
-        <input
-          placeholder="Enter your topic here"
-          onChange={handleChange}
-          type="text"
+        <Design
+          containerRef={containerRef}
+          id="div"
+          previewZoom={previewZoom}
+          isDark={isDark}
+          subtitle={subtitle}
         />
-        <input type="button" value="Invert Theme" onClick={handleTheme} />
-        <br />
-        <input type="button" value="Capture" onClick={handleClick} />
-        <input type="button" value="Reload" onClick={handleReload} />
-        <input
-          type="button"
-          value="Download"
-          onClick={handleDownload}
-          disabled={isDisabled}
-        />
-        <div>
-          <a
-            ref={anchorRef}
-            href="https://kodekai.com/thumbnails"
-            style={{ display: "none" }}
-          >
-            Download thumbnail
-          </a>
-        </div>
-        <br />
       </div>
-      <div>
-        <Div ref={containerRef} id="div" isDark={isDark}>
-          <h1 style={{ fontSize: 400 }}>kode kai</h1>
-          <h2 style={{ fontSize: 150 }}>{subtitle}</h2>
-        </Div>
-      </div>
-    </>
+      <br />
+      <input
+        placeholder="Enter your topic here"
+        onChange={handleChange}
+        type="text"
+      />
+      <button onClick={handleCapture} disabled={rendered}>
+        <FontAwesomeIcon icon={faCameraRetro} />
+      </button>
+      <button onClick={handleReload}>
+        <FontAwesomeIcon icon={faRecycle} />
+      </button>
+      <button onClick={handleDownload} disabled={!rendered}>
+        <FontAwesomeIcon icon={faDownload} />
+      </button>
+      <button onClick={handleTheme}>
+        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+      </button>
+      <a
+        ref={anchorRef}
+        href="https://kodekai.com/thumbnails"
+        style={{ display: "none" }}
+      >
+        Download thumbnail
+      </a>
+      <br />
+    </div>
   );
 };
 
