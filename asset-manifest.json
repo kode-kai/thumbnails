@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/thumbnails/static/css/main.ad7c4b5e.chunk.css",
-    "main.js": "/thumbnails/static/js/main.2e846e71.chunk.js",
-    "main.js.map": "/thumbnails/static/js/main.2e846e71.chunk.js.map",
+    "main.css": "/thumbnails/static/css/main.b84794b1.chunk.css",
+    "main.js": "/thumbnails/static/js/main.8ec7087d.chunk.js",
+    "main.js.map": "/thumbnails/static/js/main.8ec7087d.chunk.js.map",
     "runtime-main.js": "/thumbnails/static/js/runtime-main.4477c807.js",
     "runtime-main.js.map": "/thumbnails/static/js/runtime-main.4477c807.js.map",
     "static/js/2.fa9911be.chunk.js": "/thumbnails/static/js/2.fa9911be.chunk.js",
     "static/js/2.fa9911be.chunk.js.map": "/thumbnails/static/js/2.fa9911be.chunk.js.map",
     "index.html": "/thumbnails/index.html",
-    "static/css/main.ad7c4b5e.chunk.css.map": "/thumbnails/static/css/main.ad7c4b5e.chunk.css.map",
+    "static/css/main.b84794b1.chunk.css.map": "/thumbnails/static/css/main.b84794b1.chunk.css.map",
     "static/js/2.fa9911be.chunk.js.LICENSE.txt": "/thumbnails/static/js/2.fa9911be.chunk.js.LICENSE.txt",
     "static/media/App.css": "/thumbnails/static/media/Montserrat-Regular.3cd78665.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.4477c807.js",
     "static/js/2.fa9911be.chunk.js",
-    "static/css/main.ad7c4b5e.chunk.css",
-    "static/js/main.2e846e71.chunk.js"
+    "static/css/main.b84794b1.chunk.css",
+    "static/js/main.8ec7087d.chunk.js"
   ]
 }
