@@ -12,12 +12,15 @@ const Div = styled.div`
     font-family: "Knewave", cursive;
     text-align: center;
     font-weight: normal;
+    line-height: initial;
   }
 
   > h2 {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     padding: 0 50px;
+    font-weight: bold;
+    line-height: initial;
   }
 
   background-color: ${(props) => (props.isDark ? `#160f29` : `#f8e71c`)};
