@@ -3,6 +3,9 @@ import domtoimage from "dom-to-image";
 import styled from "styled-components";
 import PlaceholderImage from "../../assets/placeholder.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import {
   faCameraRetro,
   faRecycle,
@@ -12,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Design from "./Design";
+import { ButtonGroup } from "react-bootstrap";
 
 const initialText = "PLACEHOLDER";
 
@@ -56,10 +60,15 @@ const Thumbnail = () => {
 
   const handleTheme = () => setIsDark((isDark) => !isDark);
 
+  var options = {
+    quality: 1,
+    width: 1920,
+    height: 1080,
+  };
   const handleCapture = () => {
     setPreviewZoom(1.0);
     const input = containerRef.current;
-    domtoimage.toPng(input).then((imgData) => {
+    domtoimage.toPng(input, options).then((imgData) => {
       window.scrollTo(0, 0);
       imageRef.current.src = imgData;
       setSource(imgData);
@@ -80,8 +89,8 @@ const Thumbnail = () => {
   };
 
   return (
-    <div>
-      <div>
+    <>
+      <div style={{ width: "960px", margin: "auto" }}>
         <Img src={PlaceholderImage} ref={imageRef} id="myImage" alt="canvas" />
         <Design
           containerRef={containerRef}
@@ -92,23 +101,31 @@ const Thumbnail = () => {
         />
       </div>
       <br />
-      <input
-        placeholder="Enter your topic here"
-        onChange={handleChange}
-        type="text"
-      />
-      <button onClick={handleCapture} disabled={rendered}>
-        <FontAwesomeIcon icon={faCameraRetro} />
-      </button>
-      <button onClick={handleReload}>
-        <FontAwesomeIcon icon={faRecycle} />
-      </button>
-      <button onClick={handleDownload} disabled={!rendered}>
-        <FontAwesomeIcon icon={faDownload} />
-      </button>
-      <button onClick={handleTheme}>
-        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
-      </button>
+      <Form>
+        <Form.Group controlId="formSubtitle">
+          <Form.Label>Subtitle</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter your topic here"
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <ButtonGroup aria-label="Basic example">
+          <Button onClick={handleCapture} disabled={rendered}>
+            <FontAwesomeIcon icon={faCameraRetro} />
+          </Button>
+          <Button onClick={handleReload}>
+            <FontAwesomeIcon icon={faRecycle} />
+          </Button>
+          <Button onClick={handleDownload} disabled={!rendered}>
+            <FontAwesomeIcon icon={faDownload} />
+          </Button>
+          <Button onClick={handleTheme}>
+            <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+          </Button>
+        </ButtonGroup>
+      </Form>
       <a
         ref={anchorRef}
         href="https://kodekai.com/thumbnails"
@@ -116,8 +133,7 @@ const Thumbnail = () => {
       >
         Download thumbnail
       </a>
-      <br />
-    </div>
+    </>
   );
 };
 
