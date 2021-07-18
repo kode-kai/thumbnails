@@ -30,7 +30,7 @@ const Div = styled.div`
 const Design = ({ previewZoom, isDark, subtitle, containerRef }) => {
   return (
     <Div ref={containerRef} previewZoom={previewZoom} isDark={isDark}>
-      <h1 style={{ fontSize: 400 }}>kode kai</h1>
+      <h1 style={{ fontSize: 300 }}>kode kai</h1>
       <h2 style={{ fontSize: 150 }}>{subtitle}</h2>
     </Div>
   );
